@@ -1,0 +1,14 @@
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.deps.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Common.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Common.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.csprojAssemblyReference.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.csproj.CoreCompileInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.AssemblyInfoInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.AssemblyInfo.cs
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.csproj.CopyComplete
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.pdb

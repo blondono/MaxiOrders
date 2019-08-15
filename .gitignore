@@ -9,6 +9,8 @@
 
 # dependencies
 /maxiorders-front/node_modules
+/maxiorders-back/MaxiOrders.Back/MaxiOrders.Back.Common/bin
+/maxiorders-back/MaxiOrders.Back/MaxiOrders.Back.Common/obj/Debug
 
 # profiling files
 chrome-profiler-events.json
@@ -20,6 +22,11 @@ speed-measure-plugin.json
 .classpath
 .c9/
 *.launch
+*.CopyComplete
+*.cache
+*.dll
+*.props
+*.pdb
 .settings/
 *.sublime-workspace
 

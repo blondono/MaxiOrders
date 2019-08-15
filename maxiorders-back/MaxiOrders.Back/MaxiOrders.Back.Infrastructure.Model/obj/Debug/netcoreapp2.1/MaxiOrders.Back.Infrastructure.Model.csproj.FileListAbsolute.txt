@@ -1,0 +1,12 @@
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.deps.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.csprojAssemblyReference.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.csproj.CoreCompileInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.AssemblyInfoInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.AssemblyInfo.cs
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.csproj.CopyComplete
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.pdb

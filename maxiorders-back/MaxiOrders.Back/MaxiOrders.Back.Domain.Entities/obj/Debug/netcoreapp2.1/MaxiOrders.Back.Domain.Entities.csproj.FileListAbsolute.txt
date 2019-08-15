@@ -1,0 +1,9 @@
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.deps.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.csprojAssemblyReference.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.csproj.CoreCompileInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.AssemblyInfoInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.AssemblyInfo.cs
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.pdb

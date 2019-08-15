@@ -1,1 +1,31 @@
-<h1>{{ title }}</h1>
+
+<div id="page-wrapper">
+    <div class="admin-login">
+        <div class="admin-login__cont">
+            <div class="login-form">
+                <section id="loginForm">
+                    <form #formLogin="ngForm" (onSubmit)="onSubmit()">
+                        <div class="admin-login__logo">
+                            <img src="~/Content/Images/logo.png" />
+                        </div>
+                        <div class="admin-login__field clearfix">
+                            <label class="col-md-4 control-label">Usuario</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="admin-login__field clearfix">
+                                <label class="col-md-4 control-label">Contraseña</label>
+                            <div class="col-md-8">
+                                    <input type="text" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="admin-login__btn">
+                            <input type="submit" value="Ingresar"/>
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</div>

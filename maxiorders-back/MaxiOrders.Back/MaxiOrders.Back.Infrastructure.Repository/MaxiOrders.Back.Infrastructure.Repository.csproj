@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MaxiOrders.Back.Common\MaxiOrders.Back.Common.csproj" />
+    <ProjectReference Include="..\MaxiOrders.Back.Domain\MaxiOrders.Back.Domain.csproj" />
+    <ProjectReference Include="..\MaxiOrders.Back.Infrastructure.Model\MaxiOrders.Back.Infrastructure.Model.csproj" />
+  </ItemGroup>
+
+</Project>

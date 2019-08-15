@@ -1,0 +1,80 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.645
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{1BE1E843-233F-41E0-AD11-0D2FA194E507}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{85A41CDF-9AF5-4E59-ADDE-7D7E38D8082A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{F326ED8C-0C25-440F-B141-8A352F3EEFBA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Architecture", "Architecture", "{441A6FEE-4A1F-4106-A886-094567DC13EC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Layers", "Layers", "{613A19B5-1AC6-40D9-BBAF-580F3EF3B227}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{D5D88A77-1A30-4E45-B9CC-14F5E02DAEA0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxiOrders.Back.Common", "MaxiOrders.Back.Common\MaxiOrders.Back.Common.csproj", "{4398EA61-9516-4E99-9C50-4730BE021BF5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxiOrders.Back.Domain", "MaxiOrders.Back.Domain\MaxiOrders.Back.Domain.csproj", "{2DFB874C-844A-4F73-B4DC-78D849DB2067}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxiOrders.Back.Infrastructure.Model", "MaxiOrders.Back.Infrastructure.Model\MaxiOrders.Back.Infrastructure.Model.csproj", "{39CCD52A-F1CF-4A79-BDC4-212BDF3895A6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxiOrders.Back.Infrastructure.Repository", "MaxiOrders.Back.Infrastructure.Repository\MaxiOrders.Back.Infrastructure.Repository.csproj", "{CE36EDB1-F68B-4571-83B6-21985CACAE7A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxiOrders.Back.Domain.Entities", "MaxiOrders.Back.Domain.Entities\MaxiOrders.Back.Domain.Entities.csproj", "{CDFC8AA8-BE5E-4EA2-9963-3B0FD1E2EB71}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaxiOrders.Back.WebApi", "MaxiOrders.Back.WebApi\MaxiOrders.Back.WebApi.csproj", "{13DA5F4C-870C-475C-9BF0-BAC1EA24FEB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4398EA61-9516-4E99-9C50-4730BE021BF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4398EA61-9516-4E99-9C50-4730BE021BF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4398EA61-9516-4E99-9C50-4730BE021BF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4398EA61-9516-4E99-9C50-4730BE021BF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2DFB874C-844A-4F73-B4DC-78D849DB2067}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2DFB874C-844A-4F73-B4DC-78D849DB2067}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2DFB874C-844A-4F73-B4DC-78D849DB2067}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2DFB874C-844A-4F73-B4DC-78D849DB2067}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39CCD52A-F1CF-4A79-BDC4-212BDF3895A6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39CCD52A-F1CF-4A79-BDC4-212BDF3895A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39CCD52A-F1CF-4A79-BDC4-212BDF3895A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39CCD52A-F1CF-4A79-BDC4-212BDF3895A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE36EDB1-F68B-4571-83B6-21985CACAE7A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE36EDB1-F68B-4571-83B6-21985CACAE7A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE36EDB1-F68B-4571-83B6-21985CACAE7A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE36EDB1-F68B-4571-83B6-21985CACAE7A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDFC8AA8-BE5E-4EA2-9963-3B0FD1E2EB71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDFC8AA8-BE5E-4EA2-9963-3B0FD1E2EB71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDFC8AA8-BE5E-4EA2-9963-3B0FD1E2EB71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDFC8AA8-BE5E-4EA2-9963-3B0FD1E2EB71}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13DA5F4C-870C-475C-9BF0-BAC1EA24FEB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13DA5F4C-870C-475C-9BF0-BAC1EA24FEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13DA5F4C-870C-475C-9BF0-BAC1EA24FEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13DA5F4C-870C-475C-9BF0-BAC1EA24FEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1BE1E843-233F-41E0-AD11-0D2FA194E507} = {613A19B5-1AC6-40D9-BBAF-580F3EF3B227}
+		{85A41CDF-9AF5-4E59-ADDE-7D7E38D8082A} = {613A19B5-1AC6-40D9-BBAF-580F3EF3B227}
+		{F326ED8C-0C25-440F-B141-8A352F3EEFBA} = {441A6FEE-4A1F-4106-A886-094567DC13EC}
+		{613A19B5-1AC6-40D9-BBAF-580F3EF3B227} = {441A6FEE-4A1F-4106-A886-094567DC13EC}
+		{D5D88A77-1A30-4E45-B9CC-14F5E02DAEA0} = {613A19B5-1AC6-40D9-BBAF-580F3EF3B227}
+		{4398EA61-9516-4E99-9C50-4730BE021BF5} = {F326ED8C-0C25-440F-B141-8A352F3EEFBA}
+		{2DFB874C-844A-4F73-B4DC-78D849DB2067} = {85A41CDF-9AF5-4E59-ADDE-7D7E38D8082A}
+		{39CCD52A-F1CF-4A79-BDC4-212BDF3895A6} = {D5D88A77-1A30-4E45-B9CC-14F5E02DAEA0}
+		{CE36EDB1-F68B-4571-83B6-21985CACAE7A} = {D5D88A77-1A30-4E45-B9CC-14F5E02DAEA0}
+		{CDFC8AA8-BE5E-4EA2-9963-3B0FD1E2EB71} = {85A41CDF-9AF5-4E59-ADDE-7D7E38D8082A}
+		{13DA5F4C-870C-475C-9BF0-BAC1EA24FEB2} = {1BE1E843-233F-41E0-AD11-0D2FA194E507}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2202E458-B2D7-4B87-9FAF-B5CF833D3D50}
+	EndGlobalSection
+EndGlobal

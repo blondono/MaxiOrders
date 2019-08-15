@@ -1,0 +1,14 @@
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\bin\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.deps.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\bin\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.runtimeconfig.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\bin\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.runtimeconfig.dev.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\bin\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.csprojAssemblyReference.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.csproj.CoreCompileInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.RazorAssemblyInfo.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.RazorAssemblyInfo.cs
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.AssemblyInfoInputs.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.AssemblyInfo.cs
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.RazorTargetAssemblyInfo.cache
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\bin\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.dll
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.WebApi\obj\Debug\netcoreapp2.1\MaxiOrders.Back.WebApi.pdb

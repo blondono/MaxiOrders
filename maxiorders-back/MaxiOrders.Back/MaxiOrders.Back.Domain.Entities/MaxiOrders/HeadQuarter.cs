@@ -1,0 +1,17 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace MaxiOrders.Back.Domain.Entities
+{
+    public partial class HeadQuarter
+    {
+        public long IdHeadQuarter { get; set; }
+        public long IdCompany { get; set; }
+        public string Name { get; set; }
+        public string Address { get; set; }
+        public string Phone { get; set; }
+        public string Email { get; set; }
+
+        public Company IdCompanyNavigation { get; set; }
+    }
+}
