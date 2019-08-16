@@ -1,11 +1,15 @@
 ﻿using AutoMapper;
+using MaxiOrders.Back.Common;
 using MaxiOrders.Back.Domain.Mapper;
+using MaxiOrders.Back.Domain.Services.Users;
+using MaxiOrders.Back.Domain.UnitOfWork;
+using MaxiOrders.Back.Infrastructure.Model.Models;
+using MaxiOrders.Back.Infrastructure.Repository.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace MaxiOrders.Back.WebApi.DependencyInjection
 {
@@ -70,25 +74,14 @@ namespace MaxiOrders.Back.WebApi.DependencyInjection
 
             #endregion
 
-            // Application
-            services.AddScoped<Application.Services.IProcessOrdersApplicationService, Application.Services.ProcessOrdersApplicationService>();
-            services.AddScoped<Application.Services.IAuditApplicationService, Application.Services.AuditApplicationService>();
-            services.AddScoped<Application.Services.INotificationOrderSavedStatusApplicationService, Application.Services.NotificationOrderSavedStatusApplicationService>();
-
-            //Domain
-            services.AddScoped<Domain.Services.IProcessOrdersDomainService, Domain.Services.ProcessOrdersDomainService>();
-            services.AddScoped<Domain.Services.IAuditDomainService, Domain.Services.AuditDomainService>();
-            services.AddScoped<Domain.Services.INotificationOrderSavedStatusDomainService, Domain.Services.NotificationOrderSavedStatusDomainService>();
+            // Domain
+            services.AddScoped<IUserService, UserService>();
 
             // Infrastructure
-            services.AddScoped<Infrastructure.FrameWork.Loging.ILoggerService, Infrastructure.FrameWork.Loging.LoggerService>();
-            services.AddScoped<IOrderStatusSqsNotification, OrderStatusSqsNotification>();
-            services.AddScoped<ICognitoClient, CognitoClient>();
+            //services.AddScoped<Infrastructure.FrameWork.Loging.ILoggerService, Infrastructure.FrameWork.Loging.LoggerService>();
 
             // Infra - Data
-            services.AddScoped<IDatabaseFactory, DatabaseFactory>();
-            services.AddScoped<IDBBackEndCoreRepositories, DBBackEndCoreRepositories>();
-            services.AddScoped<IDBCanonicoRepositories, DBCanonicoRepositories>();
+            services.AddScoped<IDBMaxiOrdersRepositories, DBMaxiOrdersRepositories>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             //HttpFactoryClient
@@ -104,7 +97,7 @@ namespace MaxiOrders.Back.WebApi.DependencyInjection
             });
 
             //Contexto a db. Adicional se agrga configuración para permitir gurardado de varias peticiones al tiempo. 
-            services.AddDbContext<DBBackendCoreContext>(options => options.UseSqlServer(configuration.GetConnectionString("BackEndCoreConnection")
+            services.AddDbContext<DBMaxiOrdersContext>(options => options.UseSqlServer(configuration.GetConnectionString("MaxiOrdersConnection")
                 , sqlServerOptionsAction: sqlOptions =>
                 {
                     sqlOptions.EnableRetryOnFailure(
@@ -114,7 +107,7 @@ namespace MaxiOrders.Back.WebApi.DependencyInjection
                 }
                 ), ServiceLifetime.Transient);
 
-            services.AddTransient<IHttpClientFactoryService, HttpClientFactoryService>();
+            //services.AddTransient<IHttpClientFactoryService, HttpClientFactoryService>();
             serviceProvider = services.BuildServiceProvider();
         }
     }

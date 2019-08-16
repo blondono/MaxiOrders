@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
+using MaxiOrders.Back.Domain.Entities.Models;
+using MaxiOrders.Back.Domain.Entities.Models.Response;
+using MaxiOrders.Back.Domain.Services.Users;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaxiOrders.Back.WebApi.Controllers
@@ -10,9 +11,17 @@ namespace MaxiOrders.Back.WebApi.Controllers
     [ApiController]
     public class LoginController : ControllerBase
     {
-        [HttpPost]
-        [Route("autenticate")]
-        public async Task<ActionResult<OrderSaveResponse>> Save([FromBody] OrderDataEntity orderDataEntity)
+        readonly IUserService _iUserService;
+
+        public LoginController(IUserService iUserService)
         {
+            _iUserService = iUserService;
         }
+
+        [HttpPost]
+        public async Task<ActionResult<Response<Auth>>> autenticate([FromBody] Login _objLogin)
+        {
+            return await _iUserService.Autenticate(_objLogin);
+        }
+    }
 }

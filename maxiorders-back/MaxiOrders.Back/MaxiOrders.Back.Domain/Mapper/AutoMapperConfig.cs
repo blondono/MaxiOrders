@@ -11,7 +11,7 @@ namespace MaxiOrders.Back.Domain.Mapper
         {
             return new MapperConfiguration(cfg =>
             {
-                cfg.ValidateInlineMaps = false;
+                //cfg.ValidateInlineMaps = false;
                 cfg.AllowNullCollections = true;
                 //cfg.AddProfile(new DomainToViewModelMappingProfile());
                 //cfg.AddProfile(new ViewModelToDomainMappingProfile());
