@@ -84,28 +84,17 @@ namespace MaxiOrders.Back.WebApi.DependencyInjection
             services.AddScoped<IDBMaxiOrdersRepositories, DBMaxiOrdersRepositories>();
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
-            //HttpFactoryClient
-            //CompleteOrderInformation
-            services.AddHttpClient("Pim", client =>
-            {
-                client.BaseAddress = new Uri(configuration["CompleteOrder:PimEntryPoint"]);
-            });
-            //InventoryManager
-            services.AddHttpClient("InventoryReservation", client =>
-            {
-                client.BaseAddress = new Uri(configuration["InventoryManager:InventoryReservation:UpdateReservationEntryPoint"]);
-            });
 
             //Contexto a db. Adicional se agrga configuración para permitir gurardado de varias peticiones al tiempo. 
-            services.AddDbContext<DBMaxiOrdersContext>(options => options.UseSqlServer(configuration.GetConnectionString("MaxiOrdersConnection")
-                , sqlServerOptionsAction: sqlOptions =>
-                {
-                    sqlOptions.EnableRetryOnFailure(
-                        maxRetryCount: 10,
-                        maxRetryDelay: TimeSpan.FromSeconds(30),
-                        errorNumbersToAdd: null);
-                }
-                ), ServiceLifetime.Transient);
+            services.AddDbContext<DBMaxiOrdersContext>(options => options.UseSqlServer(configuration.GetConnectionString("MaxiOrdersConnection")));
+                //, sqlServerOptionsAction: sqlOptions =>
+                //{
+                //    sqlOptions.EnableRetryOnFailure(
+                //        maxRetryCount: 10,
+                //        maxRetryDelay: TimeSpan.FromSeconds(30),
+                //        errorNumbersToAdd: null);
+                //}
+                //), ServiceLifetime.Transient);
 
             //services.AddTransient<IHttpClientFactoryService, HttpClientFactoryService>();
             serviceProvider = services.BuildServiceProvider();

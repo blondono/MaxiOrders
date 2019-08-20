@@ -9,6 +9,7 @@
       "MaxiOrders.Back.Infrastructure.Model/1.0.0": {
         "dependencies": {
           "MaxiOrders.Back.Domain.Entities": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "2.2.6",
           "Microsoft.EntityFrameworkCore.SqlServer": "2.2.6",
           "Microsoft.Extensions.Configuration.FileExtensions": "2.2.0",
           "Microsoft.Extensions.Configuration.Json": "2.2.0"

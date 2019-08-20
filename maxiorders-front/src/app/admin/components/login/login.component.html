@@ -1,34 +1,39 @@
 
-<div id="page-wrapper">
-        <div class="admin-login">
-            <div class="admin-login__cont">
-                <div class="login-form">
-                    <section id="loginForm">
-                        <form #formLogin="ngForm" (onSubmit)="onSubmit()">
-                            <div class="admin-login__logo">
-                                <img src="http://localhost:4200/assets/images/icon.png" />
-                                <p>
-                                    <label class="label-login">Maxi Orders</label>
-                                </p>
-                            </div>
-                            <div class="admin-login__field clearfix">
-                                <label class="col-md-4 control-label">Usuario</label>
-                                <div class="col-md-8">
-                                    <input type="text" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="admin-login__field clearfix">
-                                <label class="col-md-4 control-label">Contraseña</label>
-                                <div class="col-md-8">
-                                        <input type="password" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="admin-login__btn">
-                                <input type="submit" value="Ingresar"/>
-                            </div>
-                        </form>
-                    </section>
+
+<div class="login-form">
+        <div class="alert alert-danger" *ngIf="status == 'error'" >
+                {{message}}
+            </div>
+    <section id="loginForm">
+        <form #loginForm="ngForm"  (ngSubmit)="onSubmit()">
+            <div class="admin-login__logo">
+                <img src="http://localhost:4200/assets/images/icon.png" />
+                <p>
+                    <label class="label-login">Maxi Orders</label>
+                </p>
+            </div>
+            <div class="admin-login__field clearfix">
+                <div class="col-lg-12">
+                    <label class="control-label">Correo electónico</label>
+                    <input autocomplete="off" type="email" name="email" #email="ngModel" [(ngModel)]="user.email" class="form-control" required>
+                    <span class="control-label-danger" *ngIf="!email.valid && email.touched">
+                        El correo electrónico es obligatorio
+                    </span>
                 </div>
             </div>
-        </div>
-    </div>
+            <div class="admin-login__field clearfix">
+                <div class="col-lg-12">
+                    <label class="control-label">Contraseña</label>
+                        <input autocomplete="off" type="Password" class="form-control"  #Password="ngModel" [(ngModel)]="user.Password" name="password" required="required">
+                    <span  class="control-label-danger" *ngIf="!Password.valid && Password.touched">
+                        La contraseña es obligatoria
+                    </span>
+                </div>
+            </div>
+            <div class="admin-login__btn">
+                <input type="submit" value="Ingresar"  [disabled]="!loginForm.form.valid"/>
+            </div>
+        </form>
+    </section>
+</div>
+            

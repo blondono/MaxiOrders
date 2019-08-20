@@ -6,3 +6,4 @@ E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.
 E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.AssemblyInfo.cs
 E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.dll
 E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Domain.Entities\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Domain.Entities.csprojAssemblyReference.cache

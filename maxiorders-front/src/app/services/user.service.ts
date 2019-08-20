@@ -17,6 +17,8 @@ export class UserService {
         this.url = GLOBAL.url;
     }
 
+    
+
     getIdentity(){
         let identity = JSON.parse(localStorage.getItem('identity'));
         if(identity != undefined)

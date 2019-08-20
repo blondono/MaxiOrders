@@ -13,7 +13,7 @@ export class AdminGuard implements CanActivate {
     canActivate(){
         let identity = this._userService.getIdentity();
         
-        if(identity && identity.Role == 'ROLE_ADMIN')
+        if(identity.user && (identity.user.role == 'ROLE_ADMIN' || identity.user.role == 'ROLE_SUPERADMIN'))
             return true
         else{
             this._router.navigate(['/admin/login']);

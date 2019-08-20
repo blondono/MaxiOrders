@@ -7,8 +7,10 @@ using MaxiOrders.Back.WebApi.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -38,8 +40,8 @@ namespace MaxiOrders.Back.WebApi
         /// </summary>
         /// <param name="services">LIstado IServiceCollection.</param>
         public void ConfigureServices(IServiceCollection services)
-        {
-            var key = Encoding.ASCII.GetBytes(Configuration.GetValue<string>("AppSettings:SecretKey"));
+        {            
+            var key = Encoding.ASCII.GetBytes(Configuration["AppSettings:SecretKey"]);
 
             services.AddAuthentication(x =>
             {
@@ -79,15 +81,15 @@ namespace MaxiOrders.Back.WebApi
                     .AllowCredentials());
             });
 
+            services.AddAutoMapper(typeof(Startup));
+            RegisterServices(services);
+
             services.AddMvc().AddJsonOptions(options =>
             {
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 options.SerializerSettings.Formatting = Formatting.Indented;
             });
-
-            services.AddAutoMapper(typeof(Startup));
-            RegisterServices(services);
         }
 
         /// <summary>
@@ -101,10 +103,13 @@ namespace MaxiOrders.Back.WebApi
             {
                 app.UseDeveloperExceptionPage();
             }
-            
+            else
+            {
+                app.UseHsts();
+            }
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
-            app.UseStaticFiles();
         }
 
         /// <summary>

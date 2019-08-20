@@ -147,7 +147,6 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
                 entity.ToTable("User", "Users");
 
                 entity.Property(e => e.DigitalSignature)
-                    .IsRequired()
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Email)
@@ -166,11 +165,10 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(50)
+                    .HasMaxLength(500)
                     .IsUnicode(false);
 
                 entity.Property(e => e.Photo)
-                    .IsRequired()
                     .HasMaxLength(50);
 
                 entity.Property(e => e.Role)
@@ -181,11 +179,6 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
                 entity.Property(e => e.Surname)
                     .IsRequired()
                     .HasMaxLength(200);
-
-                entity.Property(e => e.UserName)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .IsUnicode(false);
             });
         }
     }

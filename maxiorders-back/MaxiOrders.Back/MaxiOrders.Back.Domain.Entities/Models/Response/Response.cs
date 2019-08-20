@@ -8,6 +8,6 @@ namespace MaxiOrders.Back.Domain.Entities.Models.Response
         public int Code { get; set; }
         public string Message { get; set; }
         public T Content { get; set; }
-        public List<T> List { get; set; }
+        public IEnumerable<T> List { get; set; }
     }
 }

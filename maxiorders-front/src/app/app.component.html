@@ -1,4 +1,49 @@
-<div id="wrapper">
+<div *ngIf="_user.user.role == 'ROLE_ADMIN' || _user.user.role == 'ROLE_SUPERADMIN'" id="wrapper">
+
+    <!-- #region NAVEGACION -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/Admin">Administrador</a>
+        </div>
+        <ul class="nav navbar-right top-nav">
+            <li class="dropdown pull-left">
+                <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown">
+                    
+                <div class="avatar pull-left">
+                        <img src="https://icon-library.net/images/user-icon-jpg/user-icon-jpg-4.jpg"  />
+                </div>
+                    <i class="fa fa-user"></i>  {{_user.user.name}} <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a [routerLink]="['/mis-datos']"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mis datos</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li> 
+                        <a class="pointer" (click)="logout()" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</a> 
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <div class="side-bar">
+                    <ul id="menu" class="navbar">
+                        <li><a href="#" >Prueba</a></li>
+                        <li><a href="#" >Prueba</a></li>
+                        <li><a href="#" >Prueba</a></li>
+                        <li><a href="#" >Prueba</a></li>
+                        <li><a href="#" >Prueba</a></li>
+                    </ul>
+                </div>
+            </div>
+    </nav>
+        
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -7,4 +52,23 @@
         </div>
     </div>
 </div>
-
+<div *ngIf="_user.user.role == 'ROLE_USER'" id="page-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <div id="col-lg-2"></div>
+                <div id="col-lg-2"></div>
+                <div id="col-lg-2">
+                    <div class="admin-login">
+                        <div class="admin-login__cont">
+                            <router-outlet></router-outlet>
+                        </div>
+                    </div>
+                </div>
+                <div id="col-lg-2"></div>
+                <div id="col-lg-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+            
