@@ -9,25 +9,31 @@ import { MainComponent } from './components/main/main.component';
 import { LoginComponent } from './components/login/login.component';
 import { AdminGuard } from './services/admin.guard';
 import { UserService } from '../services/user.service';
-
+import { EquiposComponent } from './components/equipos/equipos.component';
+import { BaseService } from './services/base.master';
+import { SearchPipe } from '../pipes/search.pipe';
 
 @NgModule({
     declarations: [
         MainComponent,
-        LoginComponent
+        LoginComponent,
+        EquiposComponent,
+        SearchPipe
     ],
     imports: [
         CommonModule,
         FormsModule,
-        HttpModule,
-        AdminRoutingModule
+        AdminRoutingModule,
+        HttpModule
     ],
     exports: [
         MainComponent,
-        LoginComponent
+        LoginComponent,
+        EquiposComponent
     ],
     providers: [
         UserService,
+        BaseService,
         AdminGuard
     ]
 })

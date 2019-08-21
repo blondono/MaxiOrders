@@ -1,20 +1,13 @@
 ﻿using AutoMapper;
-using MaxiOrders.Back.Common;
-using MaxiOrders.Back.Domain.Services.Users;
-using MaxiOrders.Back.Domain.UnitOfWork;
-using MaxiOrders.Back.Infrastructure.Repository.Repositories;
 using MaxiOrders.Back.WebApi.DependencyInjection;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using System;
 using System.IO;
 using System.Text;
 
@@ -59,19 +52,7 @@ namespace MaxiOrders.Back.WebApi
                     ValidateAudience = false
                 };
             });
-
-
-            //Domain
-            services.AddScoped<IUserService, UserService>();
-
-            // Infrastructure
-            //services.AddScoped<Infrastructure.FrameWork.Loging.ILoggerService, Infrastructure.FrameWork.Loging.LoggerService>();
-
-            // Infra - Data
-            services.AddScoped<IDBMaxiOrdersRepositories, DBMaxiOrdersRepositories>();
-            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-
-
+            
             services.AddCors(options =>
             {
                 options.AddPolicy("CorsPolicy",
@@ -82,7 +63,6 @@ namespace MaxiOrders.Back.WebApi
             });
 
             services.AddAutoMapper(typeof(Startup));
-            RegisterServices(services);
 
             services.AddMvc().AddJsonOptions(options =>
             {
@@ -90,6 +70,20 @@ namespace MaxiOrders.Back.WebApi
                 options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
                 options.SerializerSettings.Formatting = Formatting.Indented;
             });
+
+            RegisterServices(services);
+
+            ////Domain
+            //services.AddScoped<IUserService, UserService>();
+            //services.AddScoped<IDeviceService, DeviceService>();
+
+            //// Infrastructure
+            ////services.AddScoped<Infrastructure.FrameWork.Loging.ILoggerService, Infrastructure.FrameWork.Loging.LoggerService>();
+
+            //// Infra - Data
+            //services.AddScoped<IDBMaxiOrdersRepositories, DBMaxiOrdersRepositories>();
+            //services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+
         }
 
         /// <summary>

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MaxiOrders.Back.Common;
 using MaxiOrders.Back.Domain.Mapper;
+using MaxiOrders.Back.Domain.Services.Master;
 using MaxiOrders.Back.Domain.Services.Users;
 using MaxiOrders.Back.Domain.UnitOfWork;
 using MaxiOrders.Back.Infrastructure.Model.Models;
@@ -76,6 +77,7 @@ namespace MaxiOrders.Back.WebApi.DependencyInjection
 
             // Domain
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IDeviceService, DeviceService>();
 
             // Infrastructure
             //services.AddScoped<Infrastructure.FrameWork.Loging.ILoggerService, Infrastructure.FrameWork.Loging.LoggerService>();

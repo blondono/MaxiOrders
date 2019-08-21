@@ -1,0 +1,190 @@
+<h2> Equipos </h2>
+<br />
+<div class="row">
+    <div class="col-lg-1">Buscar</div>
+    <div class="col-lg-3">
+        <input type="text" [(ngModel)]="busqueda" class="form-control"  />
+    </div>
+    <div class="col-lg-2">
+        <a href="#modalNew" role="button" data-toggle="modal" (click)="onNew()" class="btn btn-primary" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Nuevo
+        </a>
+    </div>
+</div>
+<br />
+<div class="col-lg-12">
+    <table class="table table-hover">
+        <thead class="thead-default">
+            <tr>
+                <th>Nombre</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>Imagen</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr *ngFor="let item of devices | search: busqueda ">
+                <td>{{item.Name}}</td>
+                <td>{{item.Brand}}</td>
+                <td>{{item.Model}}</td>
+                <td>{{item.image}}</td>
+                <td> 
+                    <a [routerLink]="['/animal', item.IdDevice]" class="btn btn-sm btn-success" >
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        Ver
+                    </a>&nbsp;
+                    <a [routerLink]="['/admin-panel/editar', item.IdDevice]" class="btn btn-sm btn-primary" >
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        Editar
+                    </a> &nbsp;
+                    <a href="#myModal{{ item.IdDevice }}" role="button" data-toggle="modal" class="btn btn-sm btn-danger" >
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        Eliminar
+                    </a>
+                    <div id="myModal{{ item.IdDevice }}" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Advertencia</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Seguro que quieres eliminar el animal <strong>{{ item.IdDevice }}</strong>?</p>
+                                    <p class="text-warning"><small>Si borras este animal no podrás recuperarlo</small></p>
+                                    <p class="text-warning"><small>ID del animal: {{ item.IdDevice }}</small></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-danger"  (click)="delete(item.IdDevice)">Borrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="!devices">
+                    <td colspan="2">No existen registros</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade bd-example-modal-lg" id="modalNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Nuevo Equipo</h5>
+                        </div>
+                        <div class="col-lg-10 pull-right">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+            </div>
+            <form #newForm="ngForm" (ngSubmit)="onSubmitNew()">
+                <div class="row">
+                    <div class="modal-body">
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Nombre</label>
+                                <input placeholder="Nombre" autocomplete="off" type="text" name="name" #name="ngModel" [(ngModel)]="device.Name" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!name.valid && name.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Marca</label>
+                                <input placeholder="Marca" autocomplete="off" type="text" name="brand" #brand="ngModel" [(ngModel)]="device.Brand" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!brand.valid && brand.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Modelo</label>
+                                <input placeholder="Modelo" autocomplete="off" type="text" name="model" #model="ngModel" [(ngModel)]="device.Model" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!model.valid && model.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Serie</label>
+                                <input placeholder="Serie" autocomplete="off" type="text" name="serie" #serie="ngModel" [(ngModel)]="device.Serie" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!serie.valid && serie.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Número de licencia</label>
+                                <input placeholder="Número de licencia" autocomplete="off" type="text" name="licensenumber" #licensenumber="ngModel" [(ngModel)]="device.LicenseNumber" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!licensenumber.valid && licensenumber.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-lg-2">
+                                    <label for="message-text" class="col-form-label">Estado</label>
+                                </div>
+                                <div class="col-lg-2">
+                                    <input placeholder="Estado" autocomplete="off" type="checkbox" name="state" #state="ngModel" [(ngModel)]="device.State">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Fecha de fabricación</label>                                
+                                <input placeholder="Fecha de fabricación" autocomplete="off" type="date" name="manufacturingdate" #manufacturingdate="ngModel" [(ngModel)]="device.ManufacturingDate" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!manufacturingdate.valid && manufacturingdate.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Fecha de compra</label>
+                                <input placeholder="Fecha de compra" autocomplete="off" type="date" name="purchasedate" #purchasedate="ngModel" [(ngModel)]="device.PurchaseDate" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!purchasedate.valid && purchasedate.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Fecha de instalación</label>
+                                <input placeholder="Fecha de instalación" autocomplete="off" type="date" name="instalationdate" #instalationdate="ngModel" [(ngModel)]="device.InstalationDate" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!instalationdate.valid && instalationdate.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Imagen</label>
+                                <input placeholder="Imagen" autocomplete="off" type="file" name="image" #image="ngModel" [(ngModel)]="device.Image" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!image.valid && image.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Factura</label>
+                                <input placeholder="Factura" autocomplete="off" type="file" name="billimage" #billimage="ngModel" [(ngModel)]="device.BillImage" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!billimage.valid && billimage.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Manual</label>
+                                <input placeholder="Manual" autocomplete="off" type="file" name="datasheets" #datasheets="ngModel" [(ngModel)]="device.DataSheets" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!datasheets.valid && datasheets.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(newForm)" >Cerrar</button>
+                    <button type="button" class="btn btn-primary" (click)="onSubmit()" [disabled]="!newForm.form.valid">{{ mode }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

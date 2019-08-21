@@ -14,7 +14,7 @@ namespace MaxiOrders.Back.Common
         void Update(T entity);
         void UpdateRange(IEnumerable<T> entityList);
         void Delete(T entity);
-        void Delete(int id);
+        void Delete(long id);
         void Delete(Expression<Func<T, bool>> where);
         T GetById(params object[] id);
         T Get(Expression<Func<T, bool>> where);

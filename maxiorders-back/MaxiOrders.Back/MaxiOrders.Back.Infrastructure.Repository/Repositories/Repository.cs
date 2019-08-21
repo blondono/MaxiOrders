@@ -49,7 +49,7 @@ namespace MaxiOrders.Back.Infrastructure.Repository.Repositories
             dbSet.Remove(entity);
         }
 
-        public virtual void Delete(int id)
+        public virtual void Delete(long id)
         {
             var entity = dbSet.Find(id);
             dbSet.Remove(entity);

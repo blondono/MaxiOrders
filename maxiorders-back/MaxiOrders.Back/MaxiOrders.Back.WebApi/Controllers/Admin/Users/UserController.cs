@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MaxiOrders.Back.Domain.Entities;
-using MaxiOrders.Back.Domain.Entities.Models;
 using MaxiOrders.Back.Domain.Entities.Models.Response;
 using MaxiOrders.Back.Domain.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace MaxiOrders.Back.WebApi.Controllers.Admin.Users
 {
     [Route("api/admin/user")]
-    [Authorize]
+    [ApiController]
     public class UserController : ControllerBase
     {
         readonly IUserService _iUserService;
@@ -24,6 +19,7 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Users
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<ActionResult<Response<User>>> Post([FromBody] User user)
         {
             return await _iUserService.Add(user);
