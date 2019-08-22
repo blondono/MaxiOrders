@@ -3,12 +3,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Device } from 'src/app/models/master/device';
 import { BaseService } from '../../services/base.master';
 import { UserService } from '../../services/user.service';
+import { UploadService } from '../../services/upload.service';
+import { Upload } from 'src/app/models/master/upload';
+
 
 @Component({
   selector: 'app-admin-equipo',
   templateUrl: './equipos.component.html',
   styleUrls: ['../../../../assets/styles.css'],
-  providers: [BaseService, UserService]
+  providers: [BaseService, UserService, UploadService]
 })
 export class EquiposComponent implements OnInit {
   public title: string;
@@ -18,15 +21,26 @@ export class EquiposComponent implements OnInit {
   public controller: string;
   public device: Device;
   public status: string;
+  public filesToUpload: Array<Upload>;
 
   constructor(
     private _route: ActivatedRoute,
     private _router: Router,
     private _baseService: BaseService,
+    private _uploadService: UploadService
   ){
     this.clearDevice();
     this.title = 'Listado de equipos';
     this.controller = 'device';
+  }
+
+    fileChangeEvent(field: string, fileInput: any) {
+      this.filesToUpload.forEach( (item, index) => {
+        if (item.Field === field) 
+          this.filesToUpload.splice(index, 1);
+      });
+      let file = new Upload(field, fileInput.target.files[0]);
+      this.filesToUpload.push(file);
   }
 
   resetForm(newForm) {
@@ -36,6 +50,7 @@ export class EquiposComponent implements OnInit {
 
   clearDevice() {
     this.device = new Device(0, '', '', '', '', '', true, new Date(), new Date(), new Date(), '', '', '');
+    this.filesToUpload = new Array<Upload>();
   }
 
   ngOnInit() {
@@ -63,34 +78,21 @@ export class EquiposComponent implements OnInit {
   }
 
   onSubmit() {
-    if (this.mode == 'Guardar') {
+    if (this.mode === 'Guardar') {
       this._baseService.add(this.device, this.controller).subscribe(
         response => {
-          if (response.animal !== 200){
+          if (response.code !== 200) {
             this.status = 'error';
           } else {
             this.status = 'success';
-            
-            /*
-            this.animal = response.animal;
-
-            //subir imagen del animal
-            if(!this.filesToUpload)
-              this._router.navigate(['/admin-panel/listado']);
-            else {
-              this._uploadService.makeFileRequest(
-                this.url + 'animal/uploadFile/' + this.animal._id,
-                [],
-                this.filesToUpload,
-                this.token,
-                'image'
-            ).then((result: any) => {
-                this.animal.image = result.image;
-                console.log(this.animal);
-                localStorage.setItem('identity', JSON.stringify(this.animal));
-                console.log(this.animal);
-            });
-            }*/
+            if (this.filesToUpload) {
+              this._baseService.upload(response.content.idDevice, this.filesToUpload, this.controller)
+              .then((result: any) => {
+                $('#modalNew').modal('hide');
+                this.clearDevice();
+                this.getDevices();
+              });
+            }
           }
         }, error => {
           var errorMessage = <any>error;

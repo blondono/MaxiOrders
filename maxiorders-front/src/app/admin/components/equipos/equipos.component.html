@@ -27,10 +27,17 @@
         <tbody>
             
             <tr *ngFor="let item of devices | search: busqueda ">
-                <td>{{item.Name}}</td>
-                <td>{{item.Brand}}</td>
-                <td>{{item.Model}}</td>
-                <td>{{item.image}}</td>
+                <td>
+                    <div *ngIf="item.image">
+                        <div class="image_for_edit">
+                            <img src="{{ url + '/animal/getFile/' + animal.image }}" />
+                        </div>
+                    </div>
+                    
+                </td>
+                <td>{{item.name}}</td>
+                <td>{{item.brand}}</td>
+                <td>{{item.model}}</td>
                 <td> 
                     <a [routerLink]="['/animal', item.IdDevice]" class="btn btn-sm btn-success" >
                         <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
@@ -158,24 +165,15 @@
                             </div>
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Imagen</label>
-                                <input placeholder="Imagen" autocomplete="off" type="file" name="image" #image="ngModel" [(ngModel)]="device.Image" class="form-control" required>
-                                <span class="control-label-danger" *ngIf="!image.valid && image.touched">
-                                        Este campo es obligatorio
-                                </span>
+                                <input placeholder="Imagen" autocomplete="off" type="file" (change)="fileChangeEvent('image', $event)" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Factura</label>
-                                <input placeholder="Factura" autocomplete="off" type="file" name="billimage" #billimage="ngModel" [(ngModel)]="device.BillImage" class="form-control" required>
-                                <span class="control-label-danger" *ngIf="!billimage.valid && billimage.touched">
-                                        Este campo es obligatorio
-                                </span>
+                                <input placeholder="Factura" autocomplete="off" type="file" (change)="fileChangeEvent('billimage', $event)" class="form-control" required>
                             </div>
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Manual</label>
-                                <input placeholder="Manual" autocomplete="off" type="file" name="datasheets" #datasheets="ngModel" [(ngModel)]="device.DataSheets" class="form-control" required>
-                                <span class="control-label-danger" *ngIf="!datasheets.valid && datasheets.touched">
-                                        Este campo es obligatorio
-                                </span>
+                                <input placeholder="Manual" autocomplete="off" type="file" (change)="fileChangeEvent('datasheets', $event)"class="form-control" required>
                             </div>
                         </div>
                     </div>

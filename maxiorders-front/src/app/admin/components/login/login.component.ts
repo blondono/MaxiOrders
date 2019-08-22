@@ -43,7 +43,7 @@ export class LoginComponent {
               this.identity.password = '';
               localStorage.setItem('identity', JSON.stringify(response.content));
               this.status = "success";
-              this._router.navigate(['/admin']);
+              this._router.navigate(['/admin/'], {relativeTo: this._route});
           }
         } else if(response.code = 500){
           this.message = response.message;

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import {map} from 'rxjs/operators';
 import { ADMINGLOBAL } from './admin.global';
 import { UserService } from 'src/app/admin/services/user.service';
+import { Upload } from 'src/app/models/master/upload';
 
 @Injectable()
 export class BaseService {
@@ -63,13 +64,40 @@ export class BaseService {
         .pipe(map(res => res.json()));
     }
 
-    getToken(){
+    getToken() {
         this.identity = this._userService.getIdentity();
         if(this.identity != undefined && this.identity.user != undefined && 
             this.identity.token != undefined && this.identity.token != ''){
-                this.token = this.identity.token;
+                this.token = "bearer " + this.identity.token;
         } else {
             this._router.navigate(['/admin/login']);
         }
+    }
+
+    upload(id, files: Array<Upload>, controller) {
+        let urlUpload = this.url;
+        let tokenUpload = this.token;
+        return new Promise(function(resolve, reject) {
+            var formData: any = new FormData();
+            var xhr = new XMLHttpRequest();
+
+            for (var i = 0; i < files.length; i++) {
+                formData.append(files[i].Field, files[i].File, files[i].File.name);
+            }
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        resolve(JSON.parse(xhr.response));
+                    } else {
+                        reject(xhr.response);
+                    }
+                }
+            }
+
+            xhr.open('POST', urlUpload + controller + '/Upload/' + id, true);
+            xhr.setRequestHeader('Authorization', tokenUpload);
+            xhr.send(formData);
+        });
     }
 }

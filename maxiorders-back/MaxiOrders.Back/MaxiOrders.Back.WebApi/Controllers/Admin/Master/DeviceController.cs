@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using MaxiOrders.Back.Common.Enums;
 using MaxiOrders.Back.Domain.Entities;
 using MaxiOrders.Back.Domain.Entities.Models.Response;
 using MaxiOrders.Back.Domain.Services.Master;
@@ -10,6 +12,8 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Drawing;
+using System.Reflection;
 
 namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
 {
@@ -28,23 +32,80 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
             _iDeviceService = iDeviceService;
         }
 
-        [HttpPost]
-        [Authorize]
-        public async Task<ActionResult<Response<Device>>> Post([FromBody] Device device)
-        {
-            return await _iDeviceService.Add(device);
-        }
-
         [HttpGet]
         public async Task<ActionResult<Response<Device>>> Get()
         {
-            return await _iDeviceService.Get();
+            Response<Device> response = new Response<Device>();
+            try
+            {
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+                response.List = await _iDeviceService.Get();
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error consultando la lista de equipos";
+            }
+            return response;
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<Response<Device>>> Get(long id)
         {
-            return await _iDeviceService.Get();
+            Response<Device> response = new Response<Device>();
+            try
+            {
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+                response.Content = await _iDeviceService.Get(id);
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error consultando la lista de equipos";
+            }
+            return response;
+        }
+
+        [HttpGet("{id}")]
+        [Route("image/{id}")]
+        public async Task<ActionResult> GetImage(long id)
+        {
+            Device objDevice = _iDeviceService.Get(id).Result;
+            if (objDevice != null)
+            {
+                if (!string.IsNullOrEmpty(objDevice.Image))
+                {
+                    string folderName = @"Uploads\Devices";
+                    string webRootPath = _hostingEnvironment.ContentRootPath;
+                    string path = Path.Combine(webRootPath, folderName, objDevice.Image);
+                    var image = System.IO.File.OpenRead(path);
+
+                    return File(image, "image/jpeg");
+                }
+                else return null;
+            }
+            else return null;
+        }
+
+        [HttpPost]
+        [Authorize]
+        public async Task<ActionResult<Response<Device>>> Post([FromBody] Device device)
+        {
+            Response<Device> response = new Response<Device>();
+            try
+            {
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+                response.Content = await _iDeviceService.Add(device);
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error al guardar el equipo";
+            }
+            return response;
         }
 
         // PUT api/values/5
@@ -52,7 +113,19 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
         [Authorize]
         public async Task<ActionResult<Response<Device>>> Put(int id, [FromBody] Device device)
         {
-            return await _iDeviceService.Update(device);
+            Response<Device> response = new Response<Device>();
+            try
+            {
+                _iDeviceService.Update(device);
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error al actualizar el equipo";
+            }
+            return response;
         }
 
         // DELETE api/values/5
@@ -60,37 +133,77 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
         [Authorize]
         public async Task<ActionResult<Response<Device>>> Delete(long id)
         {
-            return await _iDeviceService.Delete(id);
+            Response<Device> response = new Response<Device>();
+            try
+            {
+                _iDeviceService.Delete(id);
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error al guardar el equipo";
+            }
+            return response;
         }
 
-        [HttpPost]
-        public async Task<ActionResult> UploadImage(List<IFormFile> files)
+        [HttpPost, DisableRequestSizeLimit]
+        [Route("upload/{id}")]
+        [Authorize]
+        public async Task<ActionResult<Response<Device>>> Upload(long id, [FromForm]IEnumerable<IFormFile> files)
         {
-            if (files != null && files.Count > 0)
+            Response<Device> response = new Response<Device>();
+            try
             {
-                string folderName = "Upload";
-                string webRootPath = _hostingEnvironment.WebRootPath;
-                string newPath = Path.Combine(webRootPath, folderName);
-                if (!Directory.Exists(newPath))
+                if (Request.Form.Files.Count > 0)
                 {
-                    Directory.CreateDirectory(newPath);
-                }
-                foreach (IFormFile item in files)
-                {
-                    if (item.Length > 0)
+                    string folderName = @"Uploads\Devices";
+                    string webRootPath = _hostingEnvironment.ContentRootPath;
+                    string newPath = Path.Combine(webRootPath, folderName);
+                    if (!Directory.Exists(newPath))
                     {
-                        string fileName = ContentDispositionHeaderValue.Parse(item.ContentDisposition).FileName.Trim('"');
-                        string fullPath = Path.Combine(newPath, fileName);
-                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        Directory.CreateDirectory(newPath);
+                    }
+                    Device objDevice = await _iDeviceService.Get(id);
+                    foreach (IFormFile item in Request.Form.Files)
+                    {
+                        if (item.Length > 0)
                         {
-                            item.CopyTo(stream);
+                            string fileName = ContentDispositionHeaderValue.Parse(item.ContentDisposition).FileName.Trim('"');
+                            string fullPath = Path.Combine(newPath, fileName);
+                            using (var stream = new FileStream(fullPath, FileMode.Create))
+                            {
+                                item.CopyTo(stream);
+                            }
+                            switch (item.Name)
+                            {
+                                case "image":
+                                    objDevice.Image = item.FileName;
+                                    break;
+                                case "billimage":
+                                    objDevice.BillImage = item.FileName;
+                                    break;
+                                case "datasheets":
+                                    objDevice.DataSheets = item.FileName;
+                                    break;
+                            }
                         }
                     }
+                    _iDeviceService.Update(objDevice);
+                    response.Code = EnumResponseCode.OK.GetHashCode();
+                    response.Message = EnumResponseCode.OK.ToString();
+                    response.Content = objDevice;
                 }
-                return this.Content("Success");
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = "No hay archivos para subir";
             }
-            return this.Content("Fail");
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = "Error al subir el archivo, error: " + (ex.InnerException != null ? ex.InnerException.Message : ex.Message);
+            }
+            return response;
         }
-    }
     }
 }

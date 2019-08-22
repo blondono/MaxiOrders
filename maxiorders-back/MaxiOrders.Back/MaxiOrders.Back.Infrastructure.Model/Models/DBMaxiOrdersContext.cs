@@ -64,8 +64,6 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
 
                 entity.ToTable("Device", "Masters");
 
-                entity.Property(e => e.IdDevice).ValueGeneratedNever();
-
                 entity.Property(e => e.BillImage)
                     .IsRequired()
                     .HasMaxLength(50);

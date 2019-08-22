@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
+using MaxiOrders.Back.Common.Enums;
 using MaxiOrders.Back.Domain.Entities;
 using MaxiOrders.Back.Domain.Entities.Models.Response;
 using MaxiOrders.Back.Domain.Services.Users;
@@ -22,13 +24,42 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Users
         [Authorize]
         public async Task<ActionResult<Response<User>>> Post([FromBody] User user)
         {
-            return await _iUserService.Add(user);
+            Response<User> response = new Response<User>();
+            try
+            {
+                _iUserService.Add(user);
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+            }
+            catch (ApplicationException ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error al comprobar el usuario";
+            }
+            return response;
         }
 
         [HttpGet]
         public async Task<ActionResult<Response<User>>> Get()
         {
-            return await _iUserService.Get();
+            Response<User> response = new Response<User>();
+            try
+            {
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+                response.List = await _iUserService.Get();
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error consultando la lista de usuarios";
+            }
+            return response;
         }
     }
 }

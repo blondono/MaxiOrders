@@ -23,9 +23,10 @@ namespace MaxiOrders.Back.Infrastructure.Repository.Repositories
             dbSet = context.Set<TEntity>();
         }
 
-        public virtual void Add(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             dbSet.Add(entity);
+            return entity;
         }
 
         public virtual void AddRange(IEnumerable<TEntity> entityList)

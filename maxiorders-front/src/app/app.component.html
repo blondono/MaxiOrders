@@ -1,111 +1,5 @@
-<div *ngIf="_user.user.role == 'ROLE_ADMIN' || _user.user.role == 'ROLE_SUPERADMIN'" id="wrapper">
 
-    <!-- #region NAVEGACION -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/Admin">Administrador</a>
-        </div>
-        <ul class="nav navbar-right top-nav">
-            <li class="dropdown pull-left">
-                <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown">
-                    
-                <div class="avatar pull-left">
-                        <img src="https://icon-library.net/images/user-icon-jpg/user-icon-jpg-4.jpg"  />
-                </div>
-                    <i class="fa fa-user"></i>  {{_user.user.name}} <b class="caret"></b></a>
-                <ul class="dropdown-menu">
-                    <li>
-                        <a [routerLink]="['/mis-datos']"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mis datos</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li> 
-                        <a class="pointer" (click)="logout()" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</a> 
-                    </li>
-                </ul>
-            </li>
-        </ul>
-        <div class="collapse navbar-collapse navbar-ex1-collapse">
-            <div class="side-bar">
-                <ul class="k-widget k-panelbar k-reset nav navbar-nav k-header" id="menu" style="width: auto" data-role="panelbar" tabindex="0" role="menu">
-                    <li class="k-item k-state-active k-first k-last" aria-expanded="false" role="menuitem">
-                        <span class="k-link k-header">Menu de Administración
-                            <span class="k-icon k-i-arrow-n k-panelbar-collapse"></span>
-                        </span>
-                        <ul class="k-group k-panel" role="group">
-                            <li class="k-item k-state-active k-first" data-toggle="collapse" href="#colProyecto" aria-expanded="false" role="menuitem">
-                                <span class="k-link">Maestros
-                                    <span class="k-icon k-i-arrow-n k-panelbar-collapse"></span>
-                                </span>
-                                <ul id="colProyecto" class="panel-collapse collapse k-group k-panel" role="group">
-                                    <li class="k-item k-state-default k-first" role="menuitem">
-                                        <a class="k-link" [routerLink]="['/admin/equipos']" [routerLinkActive]="['active']">
-                                            <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>    
-                                                Equipos
-                                        </a> 
-                                    </li>
-                                    <li class="k-item k-state-default" role="menuitem">
-                                        <a class="k-link" [routerLink]="['/admin/parametros']" [routerLinkActive]="['active']">
-                                            <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>    
-                                                Parámetros
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="k-item k-state-active k-first" data-toggle="collapse" href="#colCompanies" aria-expanded="false" role="menuitem">
-                                <span class="k-link">Compañías
-                                    <span class="k-icon k-i-arrow-n k-panelbar-collapse"></span>
-                                </span>
-                                <ul id="colCompanies" class="panel-collapse collapse k-group k-panel" role="group">
-                                    <li class="k-item k-state-default k-first" role="menuitem">
-                                        <a class="k-link"  [routerLink]="['/admin/clientes']" [routerLinkActive]="['active']">
-                                            <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>    
-                                            Clientes
-                                        </a>
-                                    </li>
-                                    <li class="k-item k-state-default" role="menuitem">
-                                        <a class="k-link" [routerLink]="['/admin/sedes']" [routerLinkActive]="['active']">
-                                            <span class="glyphicon glyphicon-home" aria-hidden="true"></span>    
-                                            Sedes
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="k-item k-state-default k-last"  data-toggle="collapse" href="#colUsuarios" aria-expanded="false" role="menuitem">
-                                <span class="k-link">Seguridad
-                                    <span class="k-icon k-i-arrow-s k-panelbar-expand"></span>
-                                </span>
-                                <ul id="colUsuarios" class="panel-collapse collapse k-group k-panel" role="group" aria-hidden="true">
-                                    <li class="k-item k-state-default k-first" role="menuitem">
-                                        <a class="k-link" [routerLink]="['/admin/usuarios']" [routerLinkActive]="['active']">
-                                            <span class="glyphicon glyphicon-user" aria-hidden="true"></span>    
-                                            Usuarios
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
-        
-    <div id="page-wrapper">
-        <div class="container-fluid">
-            <div class="row">
-                    <router-outlet></router-outlet>
-            </div>
-        </div>
-    </div>
-</div>
-<div *ngIf="_user.user.role == 'ROLE_USER'" id="page-wrapper">
+<div *ngIf="_user.user === null" id="page-wrapper">
     <div class="container-fluid">
         <div class="row">
             <div class="col-lg-12">
@@ -124,4 +18,112 @@
         </div>
     </div>
 </div>
+<div *ngIf="_user.user !== null">
+    <div *ngIf="_user.user.role == 'ROLE_ADMIN' || _user.user.role == 'ROLE_SUPERADMIN'" id="wrapper">
+
+        <!-- #region NAVEGACION -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/Admin">Administrador</a>
+            </div>
+            <ul class="nav navbar-right top-nav">
+                <li class="dropdown pull-left">
+                    <a href="#" class="dropdown-toggle navbar-brand" data-toggle="dropdown">
+                        
+                    <div class="avatar pull-left">
+                            <img src="https://icon-library.net/images/user-icon-jpg/user-icon-jpg-4.jpg"  />
+                    </div>
+                        <i class="fa fa-user"></i>  {{_user.user.name}} <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a [routerLink]="['/mis-datos']"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Mis datos</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li> 
+                            <a class="pointer" (click)="logout()" ><span class="glyphicon glyphicon-log-out" aria-hidden="true"></span> Salir</a> 
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <div class="side-bar">
+                    <ul class="k-widget k-panelbar k-reset nav navbar-nav k-header" id="menu" style="width: auto" data-role="panelbar" tabindex="0" role="menu">
+                        <li class="k-item k-state-active k-first k-last" aria-expanded="false" role="menuitem">
+                            <span class="k-link k-header">Menu de Administración
+                                <span class="k-icon k-i-arrow-n k-panelbar-collapse"></span>
+                            </span>
+                            <ul class="k-group k-panel" role="group">
+                                <li class="k-item k-state-active k-first" data-toggle="collapse" href="#colProyecto" aria-expanded="false" role="menuitem">
+                                    <span class="k-link">Maestros
+                                        <span class="k-icon k-i-arrow-n k-panelbar-collapse"></span>
+                                    </span>
+                                    <ul id="colProyecto" class="panel-collapse collapse k-group k-panel" role="group">
+                                        <li class="k-item k-state-default k-first" role="menuitem">
+                                            <a class="k-link" [routerLink]="['/admin/equipos']" [routerLinkActive]="['active']">
+                                                <span class="glyphicon glyphicon-hdd" aria-hidden="true"></span>    
+                                                    Equipos
+                                            </a> 
+                                        </li>
+                                        <li class="k-item k-state-default" role="menuitem">
+                                            <a class="k-link" [routerLink]="['/admin/parametros']" [routerLinkActive]="['active']">
+                                                <span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span>    
+                                                    Parámetros
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="k-item k-state-active k-first" data-toggle="collapse" href="#colCompanies" aria-expanded="false" role="menuitem">
+                                    <span class="k-link">Compañías
+                                        <span class="k-icon k-i-arrow-n k-panelbar-collapse"></span>
+                                    </span>
+                                    <ul id="colCompanies" class="panel-collapse collapse k-group k-panel" role="group">
+                                        <li class="k-item k-state-default k-first" role="menuitem">
+                                            <a class="k-link"  [routerLink]="['/admin/clientes']" [routerLinkActive]="['active']">
+                                                <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>    
+                                                Clientes
+                                            </a>
+                                        </li>
+                                        <li class="k-item k-state-default" role="menuitem">
+                                            <a class="k-link" [routerLink]="['/admin/sedes']" [routerLinkActive]="['active']">
+                                                <span class="glyphicon glyphicon-home" aria-hidden="true"></span>    
+                                                Sedes
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="k-item k-state-default k-last"  data-toggle="collapse" href="#colUsuarios" aria-expanded="false" role="menuitem">
+                                    <span class="k-link">Seguridad
+                                        <span class="k-icon k-i-arrow-s k-panelbar-expand"></span>
+                                    </span>
+                                    <ul id="colUsuarios" class="panel-collapse collapse k-group k-panel" role="group" aria-hidden="true">
+                                        <li class="k-item k-state-default k-first" role="menuitem">
+                                            <a class="k-link" [routerLink]="['/admin/usuarios']" [routerLinkActive]="['active']">
+                                                <span class="glyphicon glyphicon-user" aria-hidden="true"></span>    
+                                                Usuarios
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
             
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                        <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>

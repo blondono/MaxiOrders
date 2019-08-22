@@ -17,9 +17,9 @@ namespace MaxiOrders.Back.Domain.Services.Users
 {
     public interface IUserService
     {
-        Task<Response<Auth>> Auth(User login, bool validateAdmin);
-        Task<Response<User>> Add(User user);
-        Task<Response<User>> Get();
+        Task<Auth> Auth(User login, bool validateAdmin);
+        void Add(User user);
+        Task<IEnumerable<User>> Get();
     }
 
     public class UserService : IUserService
@@ -33,12 +33,10 @@ namespace MaxiOrders.Back.Domain.Services.Users
             _configuration = configuration;
         }
 
-        public virtual async Task<Response<Auth>> Auth(User login, bool validateAdmin)
+        public virtual async Task<Auth> Auth(User login, bool validateAdmin)
         {
-            Response<Auth> response = new Response<Auth>();
             try
             {
-                Auth objAuth = new Auth();
                 User objUser = _iDBMaxiOrdersRepositories.Users.Get(x => x.Email.ToLower().Equals(login.Email.ToLower()));
                 if (objUser != null)
                 {
@@ -52,6 +50,7 @@ namespace MaxiOrders.Back.Domain.Services.Users
 
                         if (authorize)
                         {
+                            Auth objAuth = new Auth();
                             objUser.Password = string.Empty;
                             objAuth.User = objUser;
 
@@ -75,58 +74,32 @@ namespace MaxiOrders.Back.Domain.Services.Users
                             var createdToken = tokenHandler.CreateToken(tokenDescriptor);
 
                             string token = tokenHandler.WriteToken(createdToken);
-                            response.Code = EnumResponseCode.OK.GetHashCode();
-                            response.Message = EnumResponseCode.OK.ToString();
                             objAuth.Token = token;
+                            return objAuth;
                         }
                         else
-                        {
-                            response.Code = EnumResponseCode.ServerError.GetHashCode();
-                            response.Message = "No puede acceder a la parte administrativa";
-                        }
+                            throw new ApplicationException("No puede acceder a la parte administrativa");
                     }
                     else
-                    {
-                        response.Code = EnumResponseCode.ServerError.GetHashCode();
-                        response.Message = "Usuario y contraseña incorrectos";
-                    }
+                        throw new ApplicationException("Usuario y contraseña incorrectos");
                 }
                 else
-                {
-                    response.Code = EnumResponseCode.ServerError.GetHashCode();
-                    response.Message = "El usuario no existe";
-                }
-                response.Content = objAuth;
+                    throw new KeyNotFoundException("El usuario no existe");
             }
             catch (Exception ex)
             {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error autenticando al usuario";
+                throw new Exception("Error autenticando al usuario");
             }
-            return response;
+
         }
 
-        public virtual async Task<Response<User>> Get()
+        public virtual async Task<IEnumerable<User>> Get()
         {
-
-            Response<User> response = new Response<User>();
-            try
-            {
-                response.Code = EnumResponseCode.OK.GetHashCode();
-                response.Message = EnumResponseCode.OK.ToString();
-                response.List = _iDBMaxiOrdersRepositories.Users.GetAll();
-            }
-            catch(Exception ex)
-            {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error consultando la lista de usuarios";
-            }
-            return response;
+             return _iDBMaxiOrdersRepositories.Users.GetAll();
         }
 
-        public virtual async Task<Response<User>> Add(User user)
+        public virtual async void Add(User user)
         {
-            Response<User> response = new Response<User>();
             try
             {
                 User objUser = _iDBMaxiOrdersRepositories.Users.Get(x => x.Email.ToLower().Equals(user.Email.ToLower()));
@@ -136,22 +109,14 @@ namespace MaxiOrders.Back.Domain.Services.Users
                     user.Password = hashedPassword;
                     _iDBMaxiOrdersRepositories.Users.Add(user);
                     _iDBMaxiOrdersRepositories.Commit();
-                    response.Code = EnumResponseCode.OK.GetHashCode();
-                    response.Message = EnumResponseCode.OK.ToString();
                 }
                 else
-                {
-                    response.Code = EnumResponseCode.ServerError.GetHashCode();
-                    response.Message = string.Format("el correo {0} ya existe", user.Email);
-                }
-                response.Content = null;
+                    throw new ApplicationException(string.Format("el correo {0} ya existe", user.Email));
             }
             catch (Exception ex)
             {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error al comprobar el usuario";
+                throw new Exception("Error al comprobar el usuario");
             }
-            return response;
         }
     }
 }

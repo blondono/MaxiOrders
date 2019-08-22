@@ -9,7 +9,7 @@ namespace MaxiOrders.Back.Common
 {
     public interface IRepository<T> where T : class
     {
-        void Add(T entity);
+        T Add(T entity);
         void AddRange(IEnumerable<T> entityList);
         void Update(T entity);
         void UpdateRange(IEnumerable<T> entityList);

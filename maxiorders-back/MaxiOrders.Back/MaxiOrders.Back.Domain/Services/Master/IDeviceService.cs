@@ -5,16 +5,17 @@ using MaxiOrders.Back.Domain.UnitOfWork;
 using System;
 using MaxiOrders.Back.Common.Enums;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace MaxiOrders.Back.Domain.Services.Master
 {
     public interface IDeviceService
     {
-        Task<Response<Device>> Add(Device device);
-        Task<Response<Device>> Get();
-        Task<Response<Device>> Get(long id);
-        Task<Response<Device>> Update(Device device);
-        Task<Response<Device>> Delete(long id);
+        Task<IEnumerable<Device>> Get();
+        Task<Device> Get(long id);
+        Task<Device> Add(Device device);
+        void Update(Device device);
+        void Delete(long id);
     }
     public class DeviceService : IDeviceService
     {
@@ -24,97 +25,33 @@ namespace MaxiOrders.Back.Domain.Services.Master
             _iDBMaxiOrdersRepositories = iDBMaxiOrdersRepositories;
         }
 
-        public virtual async Task<Response<Device>> Get()
+        public virtual async Task<IEnumerable<Device>> Get()
         {
-
-            Response<Device> response = new Response<Device>();
-            try
-            {
-                response.Code = EnumResponseCode.OK.GetHashCode();
-                response.Message = EnumResponseCode.OK.ToString();
-                response.List = _iDBMaxiOrdersRepositories.Devices.GetAll();
-            }
-            catch (Exception ex)
-            {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error consultando la lista de equipos";
-            }
-            return response;
+            return _iDBMaxiOrdersRepositories.Devices.GetAll();
         }
 
-        public virtual async Task<Response<Device>> Get(long id)
+        public virtual async Task<Device> Get(long id)
         {
-
-            Response<Device> response = new Response<Device>();
-            try
-            {
-                response.Code = EnumResponseCode.OK.GetHashCode();
-                response.Message = EnumResponseCode.OK.ToString();
-                response.Content = _iDBMaxiOrdersRepositories.Devices.Get(x => x.IdDevice == id);
-            }
-            catch (Exception ex)
-            {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error consultando la lista de equipos";
-            }
-            return response;
+            return _iDBMaxiOrdersRepositories.Devices.Get(x => x.IdDevice == id);
         }
 
-        public virtual async Task<Response<Device>> Add(Device device)
+        public virtual async Task<Device> Add(Device device)
         {
-            Response<Device> response = new Response<Device>();
-            try
-            {
-                _iDBMaxiOrdersRepositories.Devices.Add(device);
-                _iDBMaxiOrdersRepositories.Commit();
-                response.Code = EnumResponseCode.OK.GetHashCode();
-                response.Message = EnumResponseCode.OK.ToString();
-                response.Content = null;
-            }
-            catch (Exception ex)
-            {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error al guardar el equipo";
-            }
-            return response;
+            _iDBMaxiOrdersRepositories.Devices.Add(device);
+            _iDBMaxiOrdersRepositories.Commit();
+            return device;
         }
 
-        public virtual async Task<Response<Device>> Update(Device device)
+        public virtual async void Update(Device device)
         {
-            Response<Device> response = new Response<Device>();
-            try
-            {
-                _iDBMaxiOrdersRepositories.Devices.Update(device);
-                _iDBMaxiOrdersRepositories.Commit();
-                response.Code = EnumResponseCode.OK.GetHashCode();
-                response.Message = EnumResponseCode.OK.ToString();
-                response.Content = null;
-            }
-            catch (Exception ex)
-            {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error al actualizar el equipo";
-            }
-            return response;
+            _iDBMaxiOrdersRepositories.Devices.Update(device);
+            _iDBMaxiOrdersRepositories.Commit();
         }
 
-        public virtual async Task<Response<Device>> Delete(long id)
+        public virtual async void Delete(long id)
         {
-            Response<Device> response = new Response<Device>();
-            try
-            {
-                _iDBMaxiOrdersRepositories.Devices.Delete(id);
-                _iDBMaxiOrdersRepositories.Commit();
-                response.Code = EnumResponseCode.OK.GetHashCode();
-                response.Message = EnumResponseCode.OK.ToString();
-                response.Content = null;
-            }
-            catch (Exception ex)
-            {
-                response.Code = EnumResponseCode.ServerError.GetHashCode();
-                response.Message = "Error al eliminar el equipo";
-            }
-            return response;
+            _iDBMaxiOrdersRepositories.Devices.Delete(id);
+            _iDBMaxiOrdersRepositories.Commit();
         }
     }
 }

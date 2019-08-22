@@ -6,8 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Extensions\" />
-    <Folder Include="Models\Response\" />
-    <Folder Include="Models\Request\" />
     <Folder Include="Uploads\Devices\" />
     <Folder Include="Uploads\Users\" />
     <Folder Include="Uploads\Orders\" />

@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using MaxiOrders.Back.Common.Enums;
 using MaxiOrders.Back.Domain.Entities;
 using MaxiOrders.Back.Domain.Entities.Models;
 using MaxiOrders.Back.Domain.Entities.Models.Response;
@@ -24,7 +26,29 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin
         [HttpPost]
         public async Task<ActionResult<Response<Auth>>> Post([FromBody] User login)
         {
-            return await _iUserService.Auth(login, true);
+            Response<Auth> response = new Response<Auth>();
+            try
+            {
+                response.Code = EnumResponseCode.OK.GetHashCode();
+                response.Message = EnumResponseCode.OK.ToString();
+                response.Content =  await _iUserService.Auth(login, true);
+            }
+            catch(KeyNotFoundException ex)
+            {
+                response.Code = EnumResponseCode.NotFound.GetHashCode();
+                response.Message = ex.Message;
+            }
+            catch(ApplicationException ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = ex.Message;
+            }
+            catch (Exception ex)
+            {
+                response.Code = EnumResponseCode.ServerError.GetHashCode();
+                response.Message = "Error autenticando al usuario";
+            }
+            return response;
         }
     }
 }

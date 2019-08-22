@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { UserService } from './services/user.service';
+import { Auth } from './models/users/auth.upload';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +13,11 @@ export class AppComponent {
   constructor(
     private _userService: UserService
   ){
-    this._user = _userService.getIdentity();
+    if (_userService.getIdentity() === null) {
+      this._user = new Auth('', null);
+    } else {
+      this._user = _userService.getIdentity();
+    }
   }
 
 }
