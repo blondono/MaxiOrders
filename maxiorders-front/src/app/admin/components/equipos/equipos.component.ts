@@ -5,7 +5,7 @@ import { BaseService } from '../../services/base.master';
 import { UserService } from '../../services/user.service';
 import { UploadService } from '../../services/upload.service';
 import { Upload } from 'src/app/models/master/upload';
-
+import { ADMINGLOBAL } from '../../services/admin.global';
 
 @Component({
   selector: 'app-admin-equipo',
@@ -21,6 +21,7 @@ export class EquiposComponent implements OnInit {
   public controller: string;
   public device: Device;
   public status: string;
+  public url: string;
   public filesToUpload: Array<Upload>;
 
   constructor(
@@ -32,6 +33,7 @@ export class EquiposComponent implements OnInit {
     this.clearDevice();
     this.title = 'Listado de equipos';
     this.controller = 'device';
+    this.url = ADMINGLOBAL.url;
   }
 
     fileChangeEvent(field: string, fileInput: any) {
@@ -49,7 +51,7 @@ export class EquiposComponent implements OnInit {
   }
 
   clearDevice() {
-    this.device = new Device(0, '', '', '', '', '', true, new Date(), new Date(), new Date(), '', '', '');
+    this.device = new Device(0, '', '', '', '', '', true, null, null, null, '', '', '');
     this.filesToUpload = new Array<Upload>();
   }
 
@@ -63,6 +65,8 @@ export class EquiposComponent implements OnInit {
       response => {
         if (response.list.length !== 0) {
           this.devices = response.list;
+        } else {
+          this.devices = null;
         }
       }, error => {
         console.log(<any>error);
@@ -73,8 +77,13 @@ export class EquiposComponent implements OnInit {
   onNew() {
     this.mode = 'Guardar';
   }
-  onEdit() {
+  onEdit(item: Device) {
     this.mode = 'Actualizar';
+    this.device = new Device(item.idDevice, item.name, item.brand, item.model, item.serie, item.licenseNumber,
+      item.state, item.manufacturingDate.toString().split('T')[0], item.purchaseDate.split('T')[0], item.instalationDate.split('T')[0],
+      item.image, item.billImage, item.dataSheets);
+    $('#modalNew').modal('show');
+
   }
 
   onSubmit() {
@@ -100,17 +109,41 @@ export class EquiposComponent implements OnInit {
             this.status = 'error';
           }
         }
-      )
+      );
+    } else {
+      this._baseService.update(this.device.idDevice, this.device, this.controller).subscribe(
+        response => {
+          if (response.code !== 200) {
+            this.status = 'error';
+          } else {
+            this.status = 'success';
+            if (this.filesToUpload && this.filesToUpload.length !== 0) {
+              this._baseService.upload(this.device.idDevice, this.filesToUpload, this.controller)
+              .then((result: any) => {
+              });
+            }
+            $('#modalNew').modal('hide');
+            this.clearDevice();
+            this.getDevices();
+          }
+        }, error => {
+          var errorMessage = <any>error;
+          if (errorMessage != null) {
+            this.status = 'error';
+          }
+        }
+      );
     }
   }
 
   delete(id){
-    $('#myModal' + id).modal('hide');
     this._baseService.delete(id, this.controller).subscribe(
       response => {
         if (response.code !== 200) {
           alert('Error en el servicio');
         } else {
+          $('#myModal' + id).modal('hide');
+          this.clearDevice();
           this.getDevices();
         }
       }, error => {

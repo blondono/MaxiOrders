@@ -350,8 +350,10 @@ ul.alert-dropdown {
     overflow: hidden;
 }
 
-.image_for_edit img {
-    width: 60px;
+
+.image_for_edit, .image_for_edit img {
+    min-width: 110px;
+    max-width: 110px;
 }
 
 #sidebar-wrapper {

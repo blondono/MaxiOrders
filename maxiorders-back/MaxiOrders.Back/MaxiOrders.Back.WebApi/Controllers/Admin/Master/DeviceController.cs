@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using System.Reflection;
+using Microsoft.Extensions.FileProviders;
 
 namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
 {
@@ -70,7 +71,7 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
 
         [HttpGet("{id}")]
         [Route("image/{id}")]
-        public async Task<ActionResult> GetImage(long id)
+        public async Task<IActionResult> GetImage(long id)
         {
             Device objDevice = _iDeviceService.Get(id).Result;
             if (objDevice != null)
@@ -87,6 +88,51 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
                 else return null;
             }
             else return null;
+        }
+
+        [HttpGet("{id}/{file}")]
+        [Route("download/{id}/{file}")]
+        public async Task<IActionResult> Download(long id, string file)
+        {
+            try
+            {
+            Device objDevice = _iDeviceService.Get(id).Result;
+            if (objDevice != null)
+            {
+                string filename = string.Empty;
+                switch (file)
+                {
+                    case "image":
+                        filename = objDevice.Image;
+                        break;
+                    case "billimage":
+                        filename = objDevice.BillImage;
+                        break;
+                    case "datasheets":
+                        filename = objDevice.DataSheets;
+                        break;
+                }
+
+                if (!string.IsNullOrEmpty(filename))
+                {
+                    string folderName = @"Uploads\Devices";
+                    string webRootPath = _hostingEnvironment.ContentRootPath;
+                    string path = Path.Combine(webRootPath, folderName);
+                
+                    IFileProvider provider = new PhysicalFileProvider(path);
+                    IFileInfo fileInfo = provider.GetFileInfo(filename);
+                    var readStream = fileInfo.CreateReadStream();
+                    var mimeType = "application/octet-stream";
+                    return File(readStream, mimeType, filename);
+                }
+                else return null;
+            }
+            else return null;
+
+            }catch(Exception ex)
+            {
+                return null;
+            }
         }
 
         [HttpPost]

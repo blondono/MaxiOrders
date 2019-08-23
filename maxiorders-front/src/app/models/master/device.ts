@@ -1,17 +1,17 @@
 export class Device {
     constructor(
-        public IdDevice: number,
-        public Name: string,
-        public Brand: string,
-        public Model: string,
-        public Serie: string,
-        public LicenseNumber: string,
-        public State: boolean,
-        public ManufacturingDate: Date,
-        public PurchaseDate: Date,
-        public InstalationDate: Date,
-        public Image: string,
-        public BillImage: string,
-        public DataSheets: string
+        public idDevice: number,
+        public name: string,
+        public brand: string,
+        public model: string,
+        public serie: string,
+        public licenseNumber: string,
+        public state: boolean,
+        public manufacturingDate: string,
+        public purchaseDate: string,
+        public instalationDate: string,
+        public image: string,
+        public billImage: string,
+        public dataSheets: string
     ){}
 }
