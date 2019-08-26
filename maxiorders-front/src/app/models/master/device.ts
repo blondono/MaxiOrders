@@ -1,6 +1,7 @@
 export class Device {
     constructor(
         public idDevice: number,
+        public idHeadQuarter: number,
         public name: string,
         public brand: string,
         public model: string,

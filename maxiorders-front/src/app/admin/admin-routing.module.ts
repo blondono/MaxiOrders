@@ -5,6 +5,8 @@ import { MainComponent } from './components/main/main.component';
 import { AdminGuard } from './services/admin.guard';
 import { LoginComponent } from './components/login/login.component';
 import { EquiposComponent } from './components/equipos/equipos.component';
+import { ClienteComponent } from './components/Clientes/clientes.component';
+import { SedesComponent } from './components/sedes/sedes.component';
 
 const adminRoutes: Routes = [
     { path: 'admin/login', component: LoginComponent },
@@ -14,7 +16,9 @@ const adminRoutes: Routes = [
         canActivate: [AdminGuard],
         children: [
             { path: '', redirectTo: 'admin', pathMatch: 'full' },
-            { path: 'equipos', component: EquiposComponent }
+            { path: 'equipos', component: EquiposComponent },
+            { path: 'clientes', component: ClienteComponent },
+            { path: 'sedes', component: SedesComponent }
         ]
     }
 ]

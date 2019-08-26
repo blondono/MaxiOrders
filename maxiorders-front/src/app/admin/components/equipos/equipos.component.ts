@@ -6,6 +6,7 @@ import { UserService } from '../../services/user.service';
 import { UploadService } from '../../services/upload.service';
 import { Upload } from 'src/app/models/master/upload';
 import { ADMINGLOBAL } from '../../services/admin.global';
+import { HeadQuarter } from 'src/app/models/master/headquarter';
 
 @Component({
   selector: 'app-admin-equipo',
@@ -16,9 +17,11 @@ import { ADMINGLOBAL } from '../../services/admin.global';
 export class EquiposComponent implements OnInit {
   public title: string;
   public devices: Device[];
+  public listHeadQuarters: HeadQuarter[];
   public busqueda: string;
   public mode: string;
   public controller: string;
+  public controllerHeadQuarter: string;
   public device: Device;
   public status: string;
   public url: string;
@@ -31,15 +34,17 @@ export class EquiposComponent implements OnInit {
     private _uploadService: UploadService
   ){
     this.clearDevice();
-    this.title = 'Listado de equipos';
+    this.title = 'Administración de equipos';
     this.controller = 'device';
+    this.controllerHeadQuarter = 'headquarter';
     this.url = ADMINGLOBAL.url;
   }
 
     fileChangeEvent(field: string, fileInput: any) {
       this.filesToUpload.forEach( (item, index) => {
-        if (item.Field === field) 
+        if (item.Field === field) {
           this.filesToUpload.splice(index, 1);
+        }
       });
       let file = new Upload(field, fileInput.target.files[0]);
       this.filesToUpload.push(file);
@@ -51,12 +56,17 @@ export class EquiposComponent implements OnInit {
   }
 
   clearDevice() {
-    this.device = new Device(0, '', '', '', '', '', true, null, null, null, '', '', '');
+    this.device = new Device(0, 0, '', '', '', '', '', true, null, null, null, '', '', '');
     this.filesToUpload = new Array<Upload>();
+  }
+
+  changeHeadQuarter(e) {
+    this.device.idHeadQuarter = e;
   }
 
   ngOnInit() {
     console.log('Componente equipo cargado');
+    this.getHeadQuarters();
     this.getDevices();
   }
 
@@ -74,12 +84,26 @@ export class EquiposComponent implements OnInit {
     );
   }
 
+  getHeadQuarters() {
+    this._baseService.all(this.controllerHeadQuarter).subscribe(
+      response => {
+        if (response.list.length !== 0) {
+          this.listHeadQuarters = response.list;
+        } else {
+          this.listHeadQuarters = null;
+        }
+      }, error => {
+        console.log(<any>error);
+      }
+    );
+  }
+
   onNew() {
     this.mode = 'Guardar';
   }
   onEdit(item: Device) {
     this.mode = 'Actualizar';
-    this.device = new Device(item.idDevice, item.name, item.brand, item.model, item.serie, item.licenseNumber,
+    this.device = new Device(item.idDevice, item.idHeadQuarter, item.name, item.brand, item.model, item.serie, item.licenseNumber,
       item.state, item.manufacturingDate.toString().split('T')[0], item.purchaseDate.split('T')[0], item.instalationDate.split('T')[0],
       item.image, item.billImage, item.dataSheets);
     $('#modalNew').modal('show');

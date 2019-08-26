@@ -6,6 +6,7 @@ namespace MaxiOrders.Back.Domain.Entities
     public partial class Device
     {
         public long IdDevice { get; set; }
+        public long IdHeadQuarter { get; set; }
         public string Name { get; set; }
         public string Brand { get; set; }
         public string Model { get; set; }
@@ -18,5 +19,6 @@ namespace MaxiOrders.Back.Domain.Entities
         public string Image { get; set; }
         public string BillImage { get; set; }
         public string DataSheets { get; set; }
+        public HeadQuarter IdHeadQuarterNavigation { get; set; }
     }
 }

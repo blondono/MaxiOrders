@@ -1,4 +1,4 @@
-<h2> Equipos </h2>
+<h2> {{ title }} </h2>
 <br />
 <div class="row">
     <div class="col-lg-1">Buscar</div>
@@ -84,7 +84,7 @@
             <div class="modal-header">
                     <div class="row">
                         <div class="col-lg-2">
-                            <h5 class="modal-title" id="exampleModalCenterTitle">Nuevo Equipo</h5>
+                            <h5 class="modal-title" id="exampleModalCenterTitle">Equipos</h5>
                         </div>
                         <div class="col-lg-10 pull-right">
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -93,24 +93,19 @@
                         </div>
                     </div>
             </div>
-            <form #newForm="ngForm" (ngSubmit)="onSubmitNew()">
-                <div class="row">
-                    <div class="modal-body">
-                        <div class="col-lg-6">
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Nombre</label>
-                                <input placeholder="Nombre" autocomplete="off" type="text" name="name" #name="ngModel" [(ngModel)]="device.name" class="form-control" required>
-                                <span class="control-label-danger" *ngIf="!name.valid && name.touched">
-                                        Este campo es obligatorio
-                                </span>
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Marca</label>
-                                <input placeholder="Marca" autocomplete="off" type="text" name="brand" #brand="ngModel" [(ngModel)]="device.brand" class="form-control" required>
-                                <span class="control-label-danger" *ngIf="!brand.valid && brand.touched">
-                                        Este campo es obligatorio
-                                </span>
-                            </div>
+            <form #newForm="ngForm" (ngSubmit)="onSubmitNew(newForm)">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <label for="recipient-name" class="col-form-label">Sede</label>
+                            <select class="form-control" [disabled]="mode === 'Ver'" (change)="changeHeadQuarter($event.target.value)">
+                                    <option value="0">Escoja un cliente</option>
+                                    <option *ngFor="let item of listHeadQuarters; let i = index" [selected]="listHeadQuarters[i].idHeadQuarter === device.idHeadQuarter" [ngValue]="listHeadQuarters[i].idHeadQuarter" [value]="listHeadQuarters[i].idHeadQuarter">
+                                        {{listHeadQuarters[i].name}}
+                                    </option>
+                            </select>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Modelo</label>
                                 <input placeholder="Modelo" autocomplete="off" type="text" name="model" #model="ngModel" [(ngModel)]="device.model" class="form-control" required>
@@ -118,6 +113,8 @@
                                         Este campo es obligatorio
                                 </span>
                             </div>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Serie</label>
                                 <input placeholder="Serie" autocomplete="off" type="text" name="serie" #serie="ngModel" [(ngModel)]="device.serie" class="form-control" required>
@@ -125,6 +122,19 @@
                                         Este campo es obligatorio
                                 </span>
                             </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Marca</label>
+                                <input placeholder="Marca" autocomplete="off" type="text" name="brand" #brand="ngModel" [(ngModel)]="device.brand" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!brand.valid && brand.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Número de licencia</label>
                                 <input placeholder="Número de licencia" autocomplete="off" type="text" name="licensenumber" #licensenumber="ngModel" [(ngModel)]="device.licenseNumber" class="form-control" required>
@@ -132,16 +142,16 @@
                                         Este campo es obligatorio
                                 </span>
                             </div>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
-                                <div class="col-lg-2">
-                                    <label for="message-text" class="col-form-label">Estado</label>
-                                </div>
-                                <div class="col-lg-2">
-                                    <input placeholder="Estado" autocomplete="off" type="checkbox" name="state" #state="ngModel" [(ngModel)]="device.state">
-                                </div>
+                                <label for="message-text" class="col-form-label">Estado</label><br />
+                                <input placeholder="Estado" autocomplete="off" type="checkbox" name="state" #state="ngModel" [(ngModel)]="device.state">
                             </div>
                         </div>
-                        <div class="col-lg-6">
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Fecha de fabricación</label>                                
                                 <input placeholder="Fecha de fabricación" autocomplete="off" type="date" name="manufacturingdate" #manufacturingdate="ngModel" [(ngModel)]="device.manufacturingDate" class="form-control" required>
@@ -149,13 +159,8 @@
                                         Este campo es obligatorio
                                 </span>
                             </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Fecha de compra</label>
-                                <input placeholder="Fecha de compra" autocomplete="off" type="date" name="purchasedate" #purchasedate="ngModel" [(ngModel)]="device.purchaseDate" class="form-control" required>
-                                <span class="control-label-danger" *ngIf="!purchasedate.valid && purchasedate.touched">
-                                        Este campo es obligatorio
-                                </span>
-                            </div>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Fecha de instalación</label>
                                 <input placeholder="Fecha de instalación" autocomplete="off" type="date" name="instalationdate" #instalationdate="ngModel" [(ngModel)]="device.instalationDate" class="form-control" required>
@@ -163,16 +168,33 @@
                                         Este campo es obligatorio
                                 </span>
                             </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">Fecha de compra</label>
+                                <input placeholder="Fecha de compra" autocomplete="off" type="date" name="purchasedate" #purchasedate="ngModel" [(ngModel)]="device.purchaseDate" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!purchasedate.valid && purchasedate.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="recipient-name" class="col-form-label">Imagen</label><br />
                                 <input placeholder="Imagen" autocomplete="off" type="file" (change)="fileChangeEvent('image', $event)" class="form-control" required>
                                 <a *ngIf="device.image && device.image != ''" target="_bank" href="{{ url + '/device/image/' + device.idDevice }}">Archivo</a>
                             </div>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Factura</label>
                                 <input placeholder="Factura" autocomplete="off" type="file" (change)="fileChangeEvent('billimage', $event)" class="form-control" required>
                                 <a *ngIf="device.billImage && device.billImage != ''" target="_bank" href="{{ url + '/device/download/' + device.idDevice + '/billimage' }}">Archivo</a>
                             </div>
+                        </div>
+                        <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="message-text" class="col-form-label">Manual</label>
                                 <input placeholder="Manual" autocomplete="off" type="file" (change)="fileChangeEvent('datasheets', $event)"class="form-control" required>

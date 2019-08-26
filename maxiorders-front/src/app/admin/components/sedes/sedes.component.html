@@ -1,0 +1,160 @@
+<h2> {{ title }} </h2>
+<br />
+<div class="row">
+    <div class="col-lg-1">Cliente</div>
+    <div class="col-lg-3">
+        <select class="form-control" (change)="searchByCompany($event.target.value)">
+                <option value="">Escoja un cliente</option>
+                <option *ngFor="let item of listCompanies; let i = index" [ngValue]="listCompanies[i].idCompany" [value]="listCompanies[i].idCompany">
+                    {{listCompanies[i].name}}
+                </option>
+        </select>
+    </div>
+    <div class="col-lg-1">Nombre</div>
+
+    <div class="col-lg-3">
+        <input type="text" [(ngModel)]="busqueda" class="form-control"  />
+    </div>
+    <div class="col-lg-2">
+        <a href="#modalNew" role="button" data-toggle="modal" (click)="onNew(newForm)" class="btn btn-primary" >
+            <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+            Nuevo
+        </a>
+    </div>
+</div>
+<br />
+<div class="col-lg-12">
+    <table class="table table-hover">
+        <thead class="thead-default">
+            <tr>
+                <th>Nombre</th>
+                <th>Dirección</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            
+            <tr *ngFor="let item of list | search: busqueda ">
+                <td>{{item.name}}</td>
+                <td>{{item.address}}</td>
+                <td>{{item.phone}}</td>
+                <td>{{item.email}}</td>
+                <td> 
+                    <a (click)="onMode(item, 'Ver')"class="btn btn-sm btn-success" >
+                        <span class="glyphicon glyphicon-eye-open" aria-hidden="true"></span>
+                        Ver
+                    </a>&nbsp;
+                    <a (click)="onMode(item, 'Editar')" class="btn btn-sm btn-primary" >
+                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                        Editar
+                    </a> &nbsp;
+                    <a href="#myModal{{ item.idHeadQuarter }}" role="button" data-toggle="modal" class="btn btn-sm btn-danger" >
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                        Eliminar
+                    </a>
+                    <div id="myModal{{ item.idHeadQuarter }}" class="modal fade">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Advertencia</h5>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>¿Seguro que quieres eliminar la sede <strong>{{ item.name }}</strong>?</p>
+                                    <p class="text-warning"><small>Si borras esta sede no podrás recuperarlo</small></p>
+                                    <p class="text-warning"><small>ID de la sede: {{ item.idHeadQuarter }}</small></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                    <button type="button" class="btn btn-danger"  (click)="delete(item.idHeadQuarter)">Borrar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <tr *ngIf="!list">
+                    <td colspan="2">No existen registros</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<div class="modal fade bd-example-modal-lg" id="modalNew" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row">
+                    <div class="col-lg-2">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Sede</h5>
+                    </div>
+                    <div class="col-lg-10 pull-right">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <form #newForm="ngForm" (ngSubmit)="onSubmitNew()">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Cliente</label>
+                                <select class="form-control" [disabled]="mode === 'Ver'" (change)="changeCompany($event.target.value)">
+                                        <option value="0">Escoja un cliente</option>
+                                        <option *ngFor="let item of listCompanies; let i = index" [selected]="listCompanies[i].idCompany === obj.idCompany" [ngValue]="listCompanies[i].idCompany" [value]="listCompanies[i].idCompany">
+                                            {{listCompanies[i].name}}
+                                        </option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Nombre</label>
+                                <input placeholder="Nombre"  [disabled]="mode === 'Ver'"  autocomplete="off" type="text" name="name" #name="ngModel" [(ngModel)]="obj.name" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!name.valid && name.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label for="recipient-name" class="col-form-label">Dirección</label><br />
+                                <input placeholder="Dirección"  [disabled]="mode === 'Ver'"  autocomplete="off" type="text" name="address" #address="ngModel" [(ngModel)]="obj.address" class="form-control" required>
+                                <span class="control-label-danger" *ngIf="!address.valid && address.touched">
+                                        Este campo es obligatorio
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Teléfono</label>
+                                    <input placeholder="Teléfono" [disabled]="mode === 'Ver'"  autocomplete="off" type="text" name="phone" #phone="ngModel" [(ngModel)]="obj.phone" class="form-control" required>
+                                    <span class="control-label-danger" *ngIf="!phone.valid && phone.touched">
+                                            Este campo es obligatorio
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label for="recipient-name" class="col-form-label">Correo electrónico</label>
+                                    <input placeholder="Correo electrónico" [disabled]="mode === 'Ver'"  autocomplete="off" type="email" name="email" #email="ngModel" [(ngModel)]="obj.email" class="form-control" required>
+                                    <span class="control-label-danger" *ngIf="!email.valid && email.touched">
+                                            Este campo es obligatorio
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="resetForm(newForm)" >Cerrar</button>
+                    <button type="button" class="btn btn-primary" *ngIf="mode !== 'Ver'" (click)="onSubmit(newForm)" [disabled]="!newForm.form.valid">{{ mode }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

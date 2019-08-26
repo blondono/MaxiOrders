@@ -10,3 +10,5 @@ E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.
 E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.csproj.CopyComplete
 E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.dll
 E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\obj\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.pdb
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.runtimeconfig.json
+E:\Personal\Projects\maxiorders\maxiorders-back\MaxiOrders.Back\MaxiOrders.Back.Infrastructure.Model\bin\Debug\netcoreapp2.1\MaxiOrders.Back.Infrastructure.Model.runtimeconfig.dev.json

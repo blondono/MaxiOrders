@@ -11,6 +11,7 @@
 /maxiorders-front/node_modules
 /maxiorders-back/MaxiOrders.Back/MaxiOrders.Back.Common/bin
 /maxiorders-back/MaxiOrders.Back/MaxiOrders.Back.Common/obj/Debug
+/maxiorders-back/MaxiOrders.Back/MaxiOrders.Back.WebApi/Uploads
 
 # profiling files
 chrome-profiler-events.json

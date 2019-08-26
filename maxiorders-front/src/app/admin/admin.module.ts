@@ -12,12 +12,16 @@ import { UserService } from '../services/user.service';
 import { EquiposComponent } from './components/equipos/equipos.component';
 import { BaseService } from './services/base.master';
 import { SearchPipe } from '../pipes/search.pipe';
+import { ClienteComponent } from './components/Clientes/clientes.component';
+import { SedesComponent } from './components/sedes/sedes.component';
 
 @NgModule({
     declarations: [
         MainComponent,
         LoginComponent,
         EquiposComponent,
+        SedesComponent,
+        ClienteComponent,
         SearchPipe
     ],
     imports: [
@@ -29,7 +33,9 @@ import { SearchPipe } from '../pipes/search.pipe';
     exports: [
         MainComponent,
         LoginComponent,
-        EquiposComponent
+        EquiposComponent,
+        SedesComponent,
+        ClienteComponent
     ],
     providers: [
         UserService,

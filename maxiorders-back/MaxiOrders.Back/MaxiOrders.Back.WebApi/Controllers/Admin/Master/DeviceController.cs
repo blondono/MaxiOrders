@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Drawing;
 using System.Reflection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Configuration;
 
 namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
 {
@@ -25,12 +26,15 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
     {
         readonly IDeviceService _iDeviceService;
         private IHostingEnvironment _hostingEnvironment;
+        private IConfiguration _configuration;
 
         public DeviceController(IDeviceService iDeviceService,
-            IHostingEnvironment hostingEnvironment)
+            IHostingEnvironment hostingEnvironment,
+            IConfiguration configuration)
         {
             _hostingEnvironment = hostingEnvironment;
             _iDeviceService = iDeviceService;
+            _configuration = configuration;
         }
 
         [HttpGet]
@@ -78,7 +82,7 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
             {
                 if (!string.IsNullOrEmpty(objDevice.Image))
                 {
-                    string folderName = @"Uploads\Devices";
+                    string folderName = _configuration["AppSettings:DeviceFolder"];
                     string webRootPath = _hostingEnvironment.ContentRootPath;
                     string path = Path.Combine(webRootPath, folderName, objDevice.Image);
                     var image = System.IO.File.OpenRead(path);
@@ -115,8 +119,8 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
 
                 if (!string.IsNullOrEmpty(filename))
                 {
-                    string folderName = @"Uploads\Devices";
-                    string webRootPath = _hostingEnvironment.ContentRootPath;
+                    string folderName = _configuration["AppSettings:DeviceFolder"];
+                        string webRootPath = _hostingEnvironment.ContentRootPath;
                     string path = Path.Combine(webRootPath, folderName);
                 
                     IFileProvider provider = new PhysicalFileProvider(path);
@@ -204,7 +208,7 @@ namespace MaxiOrders.Back.WebApi.Controllers.Admin.Master
             {
                 if (Request.Form.Files.Count > 0)
                 {
-                    string folderName = @"Uploads\Devices";
+                    string folderName = _configuration["AppSettings:DeviceFolder"];
                     string webRootPath = _hostingEnvironment.ContentRootPath;
                     string newPath = Path.Combine(webRootPath, folderName);
                     if (!Directory.Exists(newPath))

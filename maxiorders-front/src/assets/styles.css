@@ -20,6 +20,7 @@ body {
 
 .modal-title {
     font-weight: bold !important;
+    font-size: 23px;
 }
 
 .control-label-danger {

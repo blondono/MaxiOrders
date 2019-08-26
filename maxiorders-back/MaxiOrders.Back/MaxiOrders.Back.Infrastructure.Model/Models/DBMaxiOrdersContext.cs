@@ -101,6 +101,13 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
                 entity.Property(e => e.Serie)
                     .IsRequired()
                     .HasMaxLength(50);
+
+
+                entity.HasOne(d => d.IdHeadQuarterNavigation)
+                    .WithMany(p => p.Device)
+                    .HasForeignKey(d => d.IdHeadQuarter)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Device_HeadQuarter");
             });
 
             modelBuilder.Entity<HeadQuarter>(entity =>
@@ -108,8 +115,6 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
                 entity.HasKey(e => e.IdHeadQuarter);
 
                 entity.ToTable("HeadQuarter", "Companies");
-
-                entity.Property(e => e.IdHeadQuarter).ValueGeneratedNever();
 
                 entity.Property(e => e.Address)
                     .IsRequired()
@@ -130,6 +135,7 @@ namespace MaxiOrders.Back.Infrastructure.Model.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .IsUnicode(false);
+
 
                 entity.HasOne(d => d.IdCompanyNavigation)
                     .WithMany(p => p.HeadQuarter)
